@@ -33,7 +33,9 @@ export default {
         })
         .then((data) => {
           this.status = 'success';
-          this.image = `https://storage.cloud.google.com/cpd-images/${data.cpdid}.png`;
+          setTimeout(() => {
+            this.image = `https://storage.cloud.google.com/cpd-images/${data.cpdid}.png`;
+          }, 500);
         })
         .catch(() => {
           this.status = 'error';

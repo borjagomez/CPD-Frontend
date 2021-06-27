@@ -3,3 +3,6 @@ run:
 
 build:
 	yarn build
+
+deploy:
+	gcloud app deploy --quite
