@@ -5,7 +5,7 @@
     <p v-show="status == 'loading'">Generating CPD...</p>
     <p v-show="status == 'error'">Error</p>
     <p v-show="status == 'success'">Success!</p>
-    <img v-bind:src="image" id="result" v-show="image != null">
+    <img v-bind:src="image" id="result">
   </div>
 </template>
 
@@ -33,9 +33,7 @@ export default {
         })
         .then((data) => {
           this.status = 'success';
-          setTimeout(() => {
-            this.image = `https://storage.cloud.google.com/cpd-images/${data.cpdid}.png`;
-          }, 500);
+          this.image = `https://storage.googleapis.com/cpd-images/${data.cpdid}.png`;
         })
         .catch(() => {
           this.status = 'error';
