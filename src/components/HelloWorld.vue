@@ -2,6 +2,9 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <button v-on:click="loadCPD" type="button">Generate CPD</button>
+    <p v-show="status == 'loading'">Generating CPD...</p>
+    <p v-show="status == 'error'">Error</p>
+    <p v-show="status == 'success'">Success!</p>
     <img v-bind:src="image" id="result" v-show="image != null">
   </div>
 </template>
@@ -15,11 +18,26 @@ export default {
   data() {
     return {
       image: null,
+      status: 'idle',
     };
   },
   methods: {
     loadCPD() {
-      alert(1);
+      this.status = 'loading';
+      fetch('https://cpdbackend-mifk57n6ra-uc.a.run.app/gencpd')
+      // fetch('http://localhost:3000/gencpd')
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } return false;
+        })
+        .then((data) => {
+          this.status = 'success';
+          this.image = `https://storage.cloud.google.com/cpd-images/${data.cpdid}.png`;
+        })
+        .catch(() => {
+          this.status = 'error';
+        });
     },
   },
 };
