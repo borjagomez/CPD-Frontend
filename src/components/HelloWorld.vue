@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button v-on:click="loadCPD" type="button">Generate CPD</button>
+    <button @click="loadCPD" type="button">Generate CPD</button>
     <p v-show="status == 'loading'">Generating CPD...</p>
     <p v-show="status == 'error'">Error</p>
     <p v-show="status == 'success'">Success!</p>
-    <img v-bind:src="image" id="result">
+    <p><img :src="imageUrl" id="result"></p>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      image: null,
+      imageUrl: 'https://cdn.dribbble.com/users/144388/screenshots/1364170/spaceman.gif',
       status: 'idle',
     };
   },
@@ -33,7 +33,7 @@ export default {
         })
         .then((data) => {
           this.status = 'success';
-          this.image = `https://storage.googleapis.com/cpd-images/${data.cpdid}.png`;
+          this.imageUrl = `https://storage.googleapis.com/cpd-images/${data.cpdid}.png`;
         })
         .catch(() => {
           this.status = 'error';
