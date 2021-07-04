@@ -1,8 +1,6 @@
 run:
 	yarn serve
 
-build:
-	yarn build
-
 deploy:
+	yarn build
 	gcloud app deploy --quiet

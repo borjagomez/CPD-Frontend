@@ -26,7 +26,7 @@ export default {
     loadCPD() {
       this.status = 'loading';
       fetch('https://cpdbackend-mifk57n6ra-uc.a.run.app/gencpd')
-        // fetch('http://localhost:3000/gencpd')
+      // fetch('http://localhost:3000/gencpd')
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -49,7 +49,7 @@ export default {
       } else {
         this.imageUrl = 'https://cdn.dribbble.com/users/144388/screenshots/1364170/spaceman.gif';
       }
-    }, 1000);
+    }, 500);
   },
 };
 </script>
