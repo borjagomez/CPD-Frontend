@@ -5,7 +5,7 @@
     <p v-show="status == 'loading'">Generating CPD...</p>
     <p v-show="status == 'error'">Error</p>
     <p v-show="status == 'success'">Success!</p>
-    <p><img :src="imageUrl" id="result"></p>
+    <p><img :src="imageUrl" id="result" /></p>
   </div>
 </template>
 
@@ -19,26 +19,37 @@ export default {
     return {
       imageUrl: 'https://cdn.dribbble.com/users/144388/screenshots/1364170/spaceman.gif',
       status: 'idle',
+      cpdid: null,
     };
   },
   methods: {
     loadCPD() {
       this.status = 'loading';
       fetch('https://cpdbackend-mifk57n6ra-uc.a.run.app/gencpd')
-      // fetch('http://localhost:3000/gencpd')
+        // fetch('http://localhost:3000/gencpd')
         .then((response) => {
           if (response.ok) {
             return response.json();
-          } return false;
+          }
+          return false;
         })
         .then((data) => {
           this.status = 'success';
-          this.imageUrl = `https://storage.googleapis.com/cpd-images/${data.cpdid}.png`;
+          this.cpdid = data.cpdid;
         })
         .catch(() => {
           this.status = 'error';
         });
     },
+  },
+  mounted() {
+    setInterval(() => {
+      if (this.cpdid !== null) {
+        this.imageUrl = `https://storage.googleapis.com/cpd-images/${this.cpdid}.png`;
+      } else {
+        this.imageUrl = 'https://cdn.dribbble.com/users/144388/screenshots/1364170/spaceman.gif';
+      }
+    }, 1000);
   },
 };
 </script>
