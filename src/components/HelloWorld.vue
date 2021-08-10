@@ -1,15 +1,22 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <button @click="loadCPD" type="button">Generate CPD</button>
-    <p v-show="status == 'loading'">Generating CPD...</p>
-    <p v-show="status == 'error'">Error</p>
-    <p v-show="status == 'success'">Success!</p>
-    <p><img :src="imageUrl" id="result" /></p>
+  <div class="container-fluid">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-8 col-sm-12">
+        <h1>{{ msg }}</h1>
+        <button @click="loadCPD" type="button">Generate CPD</button>
+        <p v-show="status == 'loading'">Generating CPD...</p>
+        <p v-show="status == 'error'">Error</p>
+        <p v-show="status == 'success'">Success!</p>
+        <p><img :src="imageUrl" id="result" class="imageResult" /></p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+
+const spaceman = require('@/assets/spaceman.gif');
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -17,7 +24,7 @@ export default {
   },
   data() {
     return {
-      imageUrl: 'https://cdn.dribbble.com/users/144388/screenshots/1364170/spaceman.gif',
+      imageUrl: spaceman,
       status: 'idle',
       cpdid: null,
     };
@@ -26,7 +33,6 @@ export default {
     loadCPD() {
       this.status = 'loading';
       fetch('https://cpdbackend-mifk57n6ra-uc.a.run.app/gencpd')
-      // fetch('http://localhost:3000/gencpd')
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -47,7 +53,7 @@ export default {
       if (this.cpdid !== null) {
         this.imageUrl = `https://storage.googleapis.com/cpd-images/${this.cpdid}.png`;
       } else {
-        this.imageUrl = 'https://cdn.dribbble.com/users/144388/screenshots/1364170/spaceman.gif';
+        this.imageUrl = spaceman;
       }
     }, 500);
   },
@@ -69,5 +75,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.imageResult {
+  max-width:100%;
+  max-height:100%;
 }
 </style>
