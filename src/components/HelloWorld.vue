@@ -45,9 +45,11 @@
             <p> &nbsp; </p>
             <div class="text-center">
               <button @click="loadCPD" type="button" class="btn btn-primary">Generate CPD</button>
-              <p v-show="status == 'loading'">Generating CPD...</p>
-              <p v-show="status == 'error'">Error</p>
-              <p v-show="status == 'success'">Success!</p>
+              <p> &nbsp; </p>
+              <p class="text-primary" v-show="status == 'idle'">Ready</p>
+              <p class="text-info" v-show="status == 'loading'">Generating CPD...</p>
+              <p class="text-danger" v-show="status == 'error'">Error</p>
+              <p class="text-success" v-show="status == 'success'">Success!</p>
               <p> &nbsp; </p>
               <p class="border"><img :src="imageUrl" id="result" class="imageResult" /></p>
             </div>
