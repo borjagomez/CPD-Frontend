@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center mt-5">
-      <div class="col-md-8 col-sm-12 text-start">
+      <div class="col-md-10 col-sm-12 text-start">
         <div class="row">
           <div class="col-md-2">
             <img src="@/assets/yeshiva-logo.png" width="100">
